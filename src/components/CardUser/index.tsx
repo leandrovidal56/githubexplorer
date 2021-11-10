@@ -2,14 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import {
-  Profile,
-  Arrowright,
-  Delete,
-  Company,
-  Place,
-  Star,
-} from '~/assets/index';
+import { Arrowright, Delete, Company, Place, Star } from '~/assets/index';
 
 import { TextDescription } from '~/components/index';
 

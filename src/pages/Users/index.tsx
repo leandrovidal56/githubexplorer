@@ -1,24 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  Image,
-  ScrollView,
-  FlatList,
-  VirtualizedList,
-  Text,
-} from 'react-native';
-// import { FlatList } from 'react-native-gesture-handler';
+import { Image, ScrollView, FlatList } from 'react-native';
 import GitHubSmall from '~/assets/github_small.png';
-import api from '../../services/api';
 
-import {
-  Header,
-  ButtonSmall,
-  Return,
-  CardUser,
-  List,
-} from '~/components/index';
+import { Header, ButtonSmall, Return, CardUser } from '~/components/index';
 
 import { Container, Content } from './styles';
 
@@ -29,18 +15,16 @@ interface Teste {
   location: string;
   followers: string;
   login: string;
-  avatar_url: string;
+  avatarUrl: string;
 }
 
-const Users: React.FC = ({ route }) => {
+const Users: React.FC = () => {
   const navigation = useNavigation();
   const [users, setUsers] = useState<Teste>({});
 
   async function getStorage() {
-    const response = await AsyncStorage.getItem('users');
+    const response = await AsyncStorage.getItem('@GitHub:users');
     setUsers(JSON.parse(response));
-
-    console.log('testando o getStorage', response);
     return response;
   }
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Image, Text } from 'react-native';
+import { Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GitHub } from '~/assets/index';
 import api from '../../services/api';
@@ -18,44 +18,42 @@ import { Container, Top, Center, Footer } from './styles';
 const Home: React.FC = () => {
   const navigation = useNavigation();
   const [newUser, setNewUser] = useState('');
-  const [Users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  async function getStorage() {
-    const response = (await AsyncStorage.getItem('users')) || [];
-    console.log('testando o getStorage', response);
-    setUsers(JSON.parse(response));
-    // return response;
-    // await AsyncStorage.clear();
-  }
   useEffect(() => {
-    getStorage();
+    async function getUsers() {
+      const response = (await AsyncStorage.getItem('@GitHub:users')) || [];
+      const parsed = JSON.parse(response);
+      if (parsed.length) {
+        setUsers(parsed);
+      }
+    }
+
+    getUsers();
   }, []);
 
   async function registerUsers() {
-    console.log(getStorage());
     try {
-      const response = await api.get(`users/${newUser}`);
+      if (users.length) {
+        const response = await api.get(`/users/${newUser}`);
 
-      console.log(response.data);
-      if (Users.length <= 0) {
-        console.log('1');
-        const user = response.data;
-        const users = [user];
-        console.log('111111', users);
-        await AsyncStorage.setItem('users', JSON.stringify(users));
-        // navigation.navigate('Users');
-        return;
+        const merged = [...users, response.data];
+
+        await AsyncStorage.setItem('@GitHub:users', JSON.stringify(merged));
+
+        navigation.navigate('Users');
       }
-      console.log('2222');
-      const users = await AsyncStorage.getItem('users');
-      const user = response.data;
-      const merged = [JSON.parse(users), user];
-      console.log(merged);
-      // console.log('testando o merged', merged);
-      await AsyncStorage.setItem('users', JSON.stringify(merged));
-      // navigation.navigate('Users');
+
+      if (!users.length) {
+        const response = await api.get(`/users/${newUser}`);
+
+        const merged = [...users, response.data];
+
+        await AsyncStorage.setItem('@GitHub:users', JSON.stringify(merged));
+        navigation.navigate('Users');
+      }
     } catch (err) {
-      console.log(err);
+      const erro = err;
     }
   }
 
@@ -75,6 +73,7 @@ const Home: React.FC = () => {
           onChangeText={text => setNewUser(text)}
         />
         <Button onPress={registerUsers}>Cadastrar</Button>
+        <Button onPress={() => AsyncStorage.clear()}>APAGAR</Button>
       </Center>
       <Footer>
         <TextFooter footer="Termos de política e privacidade" />
