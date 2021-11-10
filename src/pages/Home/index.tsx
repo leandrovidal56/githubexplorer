@@ -53,7 +53,7 @@ const Home: React.FC = () => {
         navigation.navigate('Users');
       }
     } catch (err) {
-      const erro = err;
+      navigation.navigate('Error');
     }
   }
 
