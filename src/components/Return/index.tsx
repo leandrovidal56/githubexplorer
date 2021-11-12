@@ -1,13 +1,15 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Container, ReturnProps } from './styles';
+import * as S from './styles';
 
 const Return: React.FC = ({ children }) => {
   const navigation = useNavigation();
   return (
-    <Container>
-      <ReturnProps onPress={() => navigation.goBack()}>{children}</ReturnProps>
-    </Container>
+    <S.Container>
+      <S.ReturnProps onPress={() => navigation.goBack()}>
+        {children}
+      </S.ReturnProps>
+    </S.Container>
   );
 };
 export default Return;

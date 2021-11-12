@@ -10,18 +10,7 @@ import {
   Star,
   Time,
 } from '~/assets/index';
-import {
-  Container,
-  HeaderRepo,
-  TextHeaderRepo,
-  TextDescriptionRepo,
-  LineDescription,
-  Tag,
-  TagLine,
-  TagText,
-  ArrowStyle,
-  Description,
-} from './styles';
+import * as S from './styles';
 
 interface Text {
   ProjectName: string;
@@ -45,37 +34,37 @@ const CardRepo: React.FC<Text> = ({
   Day,
 }) => {
   return (
-    <Container>
-      <HeaderRepo>
-        <TextHeaderRepo>
+    <S.Container>
+      <S.HeaderRepo>
+        <S.TextHeaderRepo>
           {ProjectName}
-          <ArrowStyle>
+          <S.ArrowStyle>
             <Image source={Arrowright} />
-          </ArrowStyle>
-        </TextHeaderRepo>
+          </S.ArrowStyle>
+        </S.TextHeaderRepo>
         <Image height={50} source={StarGold} />
-      </HeaderRepo>
-      <TextDescriptionRepo>{RepositoryDescription}</TextDescriptionRepo>
-      <TagLine>
-        <Tag>
-          <TagText>{TagNameOne}</TagText>
-        </Tag>
-        <Tag>
-          <TagText>{TagNameTwo}</TagText>
-        </Tag>
+      </S.HeaderRepo>
+      <S.TextDescriptionRepo>{RepositoryDescription}</S.TextDescriptionRepo>
+      <S.TagLine>
+        <S.Tag>
+          <S.TagText>{TagNameOne}</S.TagText>
+        </S.Tag>
+        <S.Tag>
+          <S.TagText>{TagNameTwo}</S.TagText>
+        </S.Tag>
         <Image height={5} source={Edit} />
-      </TagLine>
-      <LineDescription>
+      </S.TagLine>
+      <S.LineDescription>
         <Image source={Language} />
-        <Description>{LanguageText}</Description>
+        <S.Description>{LanguageText}</S.Description>
         <Image source={Star} />
-        <Description>{StarText}</Description>
+        <S.Description>{StarText}</S.Description>
         <Image source={People} />
-        <Description>{PeopleText}</Description>
+        <S.Description>{PeopleText}</S.Description>
         <Image source={Time} />
-        <Description>{Day}</Description>
-      </LineDescription>
-    </Container>
+        <S.Description>{Day}</S.Description>
+      </S.LineDescription>
+    </S.Container>
   );
 };
 

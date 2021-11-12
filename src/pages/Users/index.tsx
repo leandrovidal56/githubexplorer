@@ -4,9 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image, ScrollView, FlatList } from 'react-native';
 import GitHubSmall from '~/assets/github_small.png';
 
-import { Header, ButtonSmall, Return, CardUser } from '~/components/index';
+import * as C from '~/components/index';
 
-import { Container, Content } from './styles';
+import * as S from './styles';
 
 interface Teste {
   id: string;
@@ -32,22 +32,23 @@ const Users: React.FC = () => {
   }, []);
 
   return (
-    <Container>
-      <Header>
-        <Return>
+    <S.Container>
+      <C.Header>
+        <C.Return>
           <Image source={GitHubSmall} />
-        </Return>
-        <ButtonSmall onPress={() => navigation.navigate('Login')}>
+        </C.Return>
+        {/* <ButtonSmall onPress={() => navigation.navigate('Login')}> */}
+        <C.ButtonSmall onPress={() => navigation.goBack()}>
           Adicionar novo
-        </ButtonSmall>
-      </Header>
+        </C.ButtonSmall>
+      </C.Header>
       <ScrollView>
-        <Content>
+        <S.Content>
           <FlatList
             data={users}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
-              <CardUser
+              <C.CardUser
                 Avatar={item.avatar_url}
                 HeaderText={item.name}
                 CompanyText={item.company}
@@ -57,9 +58,9 @@ const Users: React.FC = () => {
               />
             )}
           />
-        </Content>
+        </S.Content>
       </ScrollView>
-    </Container>
+    </S.Container>
   );
 };
 export default Users;

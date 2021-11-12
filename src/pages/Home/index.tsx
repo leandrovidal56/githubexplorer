@@ -5,15 +5,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GitHub } from '~/assets/index';
 import api from '../../services/api';
 
-import {
-  BoxInput,
-  Button,
-  TextHeader,
-  TextDescription,
-  TextFooter,
-} from '~/components/index';
+import * as C from '~/components/index';
 
-import { Container, Top, Center, Footer } from './styles';
+import * as S from './styles';
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
@@ -22,6 +16,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     async function getUsers() {
+      // AsyncStorage.clear();
       const response = (await AsyncStorage.getItem('@GitHub:users')) || [];
       const parsed = JSON.parse(response);
       if (parsed.length) {
@@ -53,32 +48,30 @@ const Home: React.FC = () => {
         navigation.navigate('Users');
       }
     } catch (err) {
+      alert('Algo deu errado tente novamente');
       navigation.navigate('Error');
     }
   }
 
   return (
-    <Container>
-      <Top>
+    <S.Container>
+      <S.Top>
         <Image source={GitHub} />
-      </Top>
-      <Center>
-        <TextHeader header="Buscar usuários" />
-        <TextDescription description="Crie sua conta através do seu usuário do GitHub" />
-        <TextDescription>{newUser}</TextDescription>
-
-        <BoxInput
+      </S.Top>
+      <S.Center>
+        <C.TextHeader header="Buscar usuários" />
+        <C.TextDescription description="Crie sua conta através do seu usuário do GitHub" />
+        <C.BoxInput
           placeholder="@username"
           value={newUser}
           onChangeText={text => setNewUser(text)}
         />
-        <Button onPress={registerUsers}>Cadastrar</Button>
-        <Button onPress={() => AsyncStorage.clear()}>APAGAR</Button>
-      </Center>
-      <Footer>
-        <TextFooter footer="Termos de política e privacidade" />
-      </Footer>
-    </Container>
+        <C.Button onPress={registerUsers}>Cadastrar</C.Button>
+      </S.Center>
+      <S.Footer>
+        <C.TextFooter footer="Termos de política e privacidade" />
+      </S.Footer>
+    </S.Container>
   );
 };
 

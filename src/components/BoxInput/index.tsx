@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInputProps, Image } from 'react-native';
-import { Box, InputName } from './styles';
+import * as S from './styles';
 import { AccountCircle } from '~/assets/index';
 
 interface Text extends TextInputProps {
@@ -9,10 +9,10 @@ interface Text extends TextInputProps {
 }
 
 const BoxInput: React.FC<Text> = ({ ...rest }) => (
-  <Box>
+  <S.Box>
     <Image source={AccountCircle} />
-    <InputName {...rest} />
-  </Box>
+    <S.InputName {...rest} />
+  </S.Box>
 );
 
 export default BoxInput;

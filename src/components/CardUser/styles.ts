@@ -23,15 +23,21 @@ export const LineRight = styled.View`
   align-items: flex-start;
   flex-direction: row;
 `;
+export const Button = styled(RectButton)``;
 
 export const LineCenter = styled.View`
   margin-left: 16px;
   align-items: flex-start;
 `;
 
+export const LineHeader = styled.View`
+  flex-direction: row;
+  width: 160px;
+  align-items: center;
+`;
+
 export const TextHeader = styled.Text`
   color: #000000;
-  width: 160px;
   font-weight: 700;
   font-size: 16px;
   height: 20px;

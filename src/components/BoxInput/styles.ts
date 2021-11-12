@@ -14,4 +14,5 @@ export const Box = styled.View`
 export const InputName = styled.TextInput`
   padding-left: 8px;
   border-radius: 4px;
+  width: 100%;
 `;
